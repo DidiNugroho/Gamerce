@@ -61,7 +61,7 @@ export default function RegisterForm() {
       <div className="hidden md:flex w-full h-screen bg-black text-white p-8">
         <div className="space-y-4 mt-48">
           <h2 className="text-xl font-bold">Sign up for your FREE Gamerce account and enjoy these benefits:</h2>
-          <h3 className="font-semibold">GameStop account exclusive benefits:</h3>
+          <h3 className="font-semibold">Gamerce account exclusive benefits:</h3>
           <p><strong>PRODUCTS CHECKING</strong><br />Check All Products Available.</p>
           <p><strong>WISHLIST FEATURE</strong><br />Save your favorite product to wishlist.</p>
         </div>
