@@ -1,6 +1,4 @@
 import type { Metadata } from "next";
-import Link from "next/link";
-import Image from "next/image";
 import localFont from "next/font/local";
 import "./globals.css";
 import Navbar from "./components/Navbar";
