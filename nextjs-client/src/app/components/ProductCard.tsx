@@ -19,7 +19,7 @@ interface ProductCardProps {
   
 export default function ProductCard({ product }: ProductCardProps) {
     return (
-      <div className="bg-white rounded-lg shadow-md p-4 m-2 flex flex-col items-center w-48">
+      <div className="bg-w hite rounded-lg shadow-md p-4 m-2 flex flex-col items-center w-48 ">
         <Image
           src={product.thumbnail}
           alt={product.name}
