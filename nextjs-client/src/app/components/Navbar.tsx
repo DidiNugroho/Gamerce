@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
+import SearchInput from "./SearchInput";
 
 export default function Navbar() {
   return (
@@ -18,11 +19,7 @@ export default function Navbar() {
         </Link>
 
         <div className="flex-1 mx-4">
-          <input
-            type="text"
-            placeholder="Search..."
-            className="w-full px-4 py-2 rounded-md bg-gray-800 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500"
-          />
+          <SearchInput />
         </div>
 
         <div className="flex items-center space-x-4">
