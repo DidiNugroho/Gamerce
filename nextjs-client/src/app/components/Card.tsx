@@ -1,6 +1,5 @@
 import Image from "next/image";
 
-// Card.tsx
 interface CardProps {
   product: {
     name: string;
@@ -29,7 +28,7 @@ export default function Card({ product }: CardProps) {
         <h2 className="text-lg font-semibold truncate">{product.name}</h2>
         <p className="text-gray-700 text-sm truncate">{product.excerpt}</p>
         <p className="text-xl font-bold mt-2">{`$${product.price}`}</p>
-        {/* Button positioned at the bottom right */}
+
         <div className="flex justify-end mt-4">
           <button className="bg-blue-500 text-white font-semibold py-2 px-4 rounded hover:bg-blue-600 transition">
             Add To Wishlist{" "}
