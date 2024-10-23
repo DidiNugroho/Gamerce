@@ -1,4 +1,4 @@
-import { hashPassword } from "@/helpers/jwt";
+import { hashPassword } from "@/helpers/bcrypt";
 import { database } from "../config/mongodb";
 import { z } from "zod";
 
@@ -30,6 +30,11 @@ class User {
     user.password = hashPassword(user.password)
 
     return this.collection().insertOne(user);
+  }
+
+  static async findUser(email: string) {
+    const user = await this.collection().findOne({email})
+    return user;
   }
 }
 
