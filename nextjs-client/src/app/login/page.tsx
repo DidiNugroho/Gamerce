@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { ChangeEvent, FormEvent, useState } from "react";
@@ -9,6 +9,7 @@ export default function Login() {
     email: "",
     password: "",
   });
+  const [loading, setLoading] = useState(false);
 
   const router = useRouter();
 
@@ -22,8 +23,8 @@ export default function Login() {
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
     try {
+      setLoading(true);
       const res = await fetch("http://localhost:3000/api/login", {
         method: "POST",
         body: JSON.stringify(input),
@@ -42,6 +43,8 @@ export default function Login() {
         icon: "error",
         confirmButtonText: "Cool",
       });
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -74,13 +77,21 @@ export default function Login() {
           className="px-4 mt-6 py-3 text-lg rounded-md bg-white border border-gray-400 w-full outline-blue-500"
         />
       </div>
-
-      <button
-        type="submit"
-        className="bg-red-500 font-bold text-white py-3 mt-6 rounded-md w-full hover:bg-red-600 transition uppercase"
-      >
-        Sign In
-      </button>
+      {!loading ? (
+        <button
+          type="submit"
+          className="bg-red-500 font-bold text-white py-3 mt-6 rounded-md w-full hover:bg-red-600 transition uppercase"
+        >
+          Sign In
+        </button>
+      ) : (
+        <button
+          type="button"
+          className="bg-black font-bold text-white py-3 mt-6 rounded-md w-full transition uppercase"
+        >
+          Signing in...
+        </button>
+      )}
 
       <div className="flex justify-center items-center mt-4">
         <span className="text-center text-xs">OR</span>
