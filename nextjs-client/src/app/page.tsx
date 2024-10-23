@@ -1,5 +1,5 @@
 import Image from "next/image";
-import ProductCard from "./components/ProductCard";
+import ProductCard from "../components/ProductCard";
 import Link from "next/link";
 
 interface Product {
@@ -241,30 +241,29 @@ export default function Home() {
         </div>
       </div>
 
-{/* Products Display Section */}
-<div className="overflow-x-auto ml-64 mr-64 py-6">
-  <div className="flex justify-between items-center mb-4 ml-12">
-    <h2 className="text-4xl ml-48 font-bold">Gamers Favourite.</h2>
-    <div className="flex justify-end">
-      <Link
-        href="/products"
-        className="bg-blue-500 text-white px-4 mr-64 py-2 rounded hover:bg-blue-600 transition duration-200"
-      >
-        See All
-      </Link>
-    </div>
-  </div>
-  
-  {/* Card Display Section */}
-  <div className="flex flex-wrap max-w-6xl mx-auto">
-    {productsData.products.map((product, index) => (
-      <div className="w-1/5 p-2" key={index}>
-        <ProductCard product={product} />
-      </div>
-    ))}
-  </div>
-</div>
+      {/* Products Display Section */}
+      <div className="overflow-x-auto ml-64 mr-64 py-6">
+        <div className="flex justify-between items-center mb-4 ml-12">
+          <h2 className="text-4xl ml-48 font-bold">Gamers Favourite.</h2>
+          <div className="flex justify-end">
+            <Link
+              href="/products"
+              className="bg-blue-500 text-white px-4 mr-64 py-2 rounded hover:bg-blue-600 transition duration-200"
+            >
+              See All
+            </Link>
+          </div>
+        </div>
 
+        {/* Card Display Section */}
+        <div className="flex flex-wrap max-w-6xl mx-auto">
+          {productsData.products.map((product, index) => (
+            <div className="w-1/5 p-2" key={index}>
+              <ProductCard product={product} />
+            </div>
+          ))}
+        </div>
+      </div>
     </div>
   );
 }

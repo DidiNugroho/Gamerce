@@ -1,8 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import Card from "../components/Card";
-import SearchInput from "../components/SearchInput";
+import Card from "../../components/Card";
+import SearchInput from "../../components/SearchInput";
 
 const productsData = {
   users: [],

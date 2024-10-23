@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Image from "next/image";
-import AddToWishlist from "@/app/components/AddToWishlist";
+import AddToWishlist from "@/components/AddToWishlist";
 
 type Product = {
   name: string;
