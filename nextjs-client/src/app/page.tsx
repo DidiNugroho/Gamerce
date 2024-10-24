@@ -244,11 +244,15 @@ export default function Home() {
       {/* Products Display Section */}
       <div className="overflow-x-auto ml-64 mr-64 py-6">
         <div className="flex justify-between items-center mb-4 ml-12">
-          <h2 className="text-4xl ml-48 font-bold">Gamers Favourite.</h2>
+          <div className="flex">
+            <h2 className="text-4xl ml-48 font-bold">Gamers Favourite.</h2>
+            <h2 className="text-4xl text-gray-500 font-bold ml-2">Best Sellers.</h2>
+
+          </div>
           <div className="flex justify-end">
             <Link
               href="/products"
-              className="bg-blue-500 text-white px-4 mr-56 py-2 rounded hover:bg-blue-600 transition duration-200"
+              className="bg-black text-white px-4 mr-56 py-2 rounded hover:bg-blue-600 transition duration-200"
             >
               See All
             </Link>

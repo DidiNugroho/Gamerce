@@ -5,10 +5,23 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/authContext";
 import SearchInput from "./SearchInput";
+import { useState } from "react";
 
 export default function Navbar() {
   const { isAuthenticated, logout } = useAuth();
   const router = useRouter();
+  const [searchQuery, setSearchQuery] = useState<string>("");
+
+  const handleSearch = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === "Enter") {
+      if (searchQuery.trim()) {
+        router.push(`/products?search=${encodeURIComponent(searchQuery)}`);
+      } else {
+        router.push("/products");
+      }
+      setSearchQuery("");
+    }
+  };
 
   const handleLogout = () => {
     logout();
@@ -23,7 +36,11 @@ export default function Navbar() {
       </Link>
 
       <div className="flex-1 mx-4">
-        <SearchInput />
+        <SearchInput
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+          onKeyDown={handleSearch}
+        />
       </div>
 
       <div className="flex items-center space-x-4">

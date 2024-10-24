@@ -42,3 +42,19 @@ export async function GET(request: Request) {
         return errorHandler(error)
     }
 }
+
+export async function DELETE(request: Request) {
+  try {
+    const userId = request.headers.get("x-user-id");
+    const { _id }: { _id: string | undefined } = await request.json();
+
+    if (!userId || !_id)
+      throw { message: "userId and wishlistId are required", status: 400 };
+
+    await Wishlist.removeWishlist({ userId, _id });
+
+    return Response.json({ message: "Wishlist item removed successfully" });
+  } catch (error) {
+    return errorHandler(error);
+  }
+}

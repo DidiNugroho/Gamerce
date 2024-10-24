@@ -9,23 +9,23 @@ export default function Wishlist() {
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 
-  useEffect(() => {
-    const fetchWishlist = async () => {
-      try {
-        const response = await fetch('http://localhost:3000/api/wishlist');
-        if (!response.ok) {
-          throw new Error('Failed to fetch wishlist');
-        }
-        const data: WishlistResponseType = await response.json();
-        console.log(data);
-        setWishlist(data);
-      } catch (err: any) {
-        setError(err.message);
-      } finally {
-        setLoading(false);
+  const fetchWishlist = async () => {
+    try {
+      const response = await fetch('http://localhost:3000/api/wishlist');
+      if (!response.ok) {
+        throw new Error('Failed to fetch wishlist');
       }
-    };
+      const data: WishlistResponseType = await response.json();
+      console.log(data);
+      setWishlist(data);
+    } catch (err: any) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
+    }
+  };
 
+  useEffect(() => {
     fetchWishlist();
   }, []);
 
@@ -46,6 +46,7 @@ export default function Wishlist() {
           {wishlist?.map((item) => (
             <WishlistCard 
               key={item.productId}
+              _id={item._id}
               productId={item.productId} 
               title={item.ProductData?.name} 
               slug={item.ProductData?.slug} 
@@ -53,6 +54,7 @@ export default function Wishlist() {
               description={item.ProductData?.description}
               price={item.ProductData?.price}
               images={item.ProductData?.images} 
+              onProductRemoved={fetchWishlist}
             />
           ))}
         </div>
