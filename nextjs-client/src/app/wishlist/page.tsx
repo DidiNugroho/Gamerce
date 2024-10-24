@@ -1,7 +1,7 @@
 "use client";
 
+import WishlistCard from '@/components/WishlistCard';
 import { WishlistResponseType } from '@/types';
-import Image from 'next/image';
 import React, { useEffect, useState } from 'react';
 
 export default function Wishlist() {
@@ -17,7 +17,7 @@ export default function Wishlist() {
           throw new Error('Failed to fetch wishlist');
         }
         const data: WishlistResponseType = await response.json();
-        console.log(data)
+        console.log(data);
         setWishlist(data);
       } catch (err: any) {
         setError(err.message);
@@ -38,28 +38,24 @@ export default function Wishlist() {
   }
 
   return (
-    <div>
+    <div className="p-4">
       {wishlist && wishlist.length === 0 ? (
         <p>Your wishlist is empty.</p>
       ) : (
-        <ul>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           {wishlist?.map((item) => (
-            <li key={item.productId}>
-              <h2>{item.ProductData?.name}</h2>
-              <p>{item.ProductData?.description}</p>
-              <p>Price: ${item.ProductData?.price}</p>
-              {item.ProductData?.images?.map((image) => (
-                <Image 
-                  width={200} 
-                  height={200} 
-                  key={image.url} 
-                  src={image.url} 
-                  alt={image.alt} 
-                />
-              ))}
-            </li>
+            <WishlistCard 
+              key={item.productId}
+              productId={item.productId} 
+              title={item.ProductData?.name} 
+              slug={item.ProductData?.slug} 
+              excerpt={item.ProductData?.excerpt} 
+              description={item.ProductData?.description}
+              price={item.ProductData?.price}
+              images={item.ProductData?.images} 
+            />
           ))}
-        </ul>
+        </div>
       )}
     </div>
   );

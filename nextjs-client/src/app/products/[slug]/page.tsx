@@ -37,7 +37,7 @@ export default async function ProductDetail({ params }: ProductDetailProps) {
             Price: ${product.price.toLocaleString()}
           </div>
 
-          <div className="mb-24">
+          <div className="mb-12">
             <span className="font-semibold">Tags: </span>
             {product.tags.map((tag) => (
               <span
@@ -48,7 +48,7 @@ export default async function ProductDetail({ params }: ProductDetailProps) {
               </span>
             ))}
           </div>
-          <AddToWishlist />
+          <AddToWishlist productId={product._id}/>
         </div>
       </div>
       <div>
