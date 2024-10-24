@@ -166,7 +166,6 @@ const productsData = {
 export default function Products() {
   return (
     <div className="mt-4 mr-4 ml-4">
-      <SearchInput />
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 p-8">
         {productsData.products.map((product, index) => (
           <Link key={index} href={`/products/${product.slug}`}>

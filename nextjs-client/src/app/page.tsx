@@ -248,7 +248,7 @@ export default function Home() {
           <div className="flex justify-end">
             <Link
               href="/products"
-              className="bg-blue-500 text-white px-4 mr-64 py-2 rounded hover:bg-blue-600 transition duration-200"
+              className="bg-blue-500 text-white px-4 mr-56 py-2 rounded hover:bg-blue-600 transition duration-200"
             >
               See All
             </Link>
