@@ -1,10 +1,12 @@
 "use client";
+import { useAuth } from "@/authContext";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { ChangeEvent, FormEvent, useState } from "react";
 import Swal from "sweetalert2";
 
 export default function Login() {
+  const { login } = useAuth();
   const [input, setInput] = useState({
     email: "",
     password: "",
@@ -29,13 +31,16 @@ export default function Login() {
         method: "POST",
         body: JSON.stringify(input),
       });
+
       const response = await res.json();
 
       if (!res.ok) {
         throw response;
       }
 
+      login();
       router.push("/");
+      
     } catch (error: any) {
       Swal.fire({
         title: "Error!",

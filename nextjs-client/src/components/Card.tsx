@@ -1,7 +1,9 @@
 import Image from "next/image";
+import AddToWishlist from "./AddToWishlist";
 
 interface CardProps {
   product: {
+    _id: string;
     name: string;
     slug: string;
     description: string;
@@ -30,9 +32,7 @@ export default function Card({ product }: CardProps) {
         <p className="text-xl font-bold mt-2">{`$${product.price}`}</p>
 
         <div className="flex justify-end mt-4">
-          <button className="bg-blue-500 text-white font-semibold py-2 px-4 rounded hover:bg-blue-600 transition">
-            Add To Wishlist{" "}
-          </button>
+          <AddToWishlist productId={product._id} />
         </div>
       </div>
     </div>

@@ -50,7 +50,6 @@ export default function RegisterForm() {
 
   return (
     <div className="flex items-center justify-between min-h-screen ml-36">
-      {/* Form Container */}
       <form className="flex flex-col mr-48 justify-center max-w-lg w-full space-y-6 font-[sans-serif] text-[#333]"
         onSubmit={handleSubmit}
       >
@@ -118,7 +117,6 @@ export default function RegisterForm() {
         </div>
       </form>
 
-      {/* Image Container */}
       <div className="hidden md:flex w-full h-screen bg-black text-white p-8">
         <div className="space-y-4 mt-48">
           <h2 className="text-xl font-bold">Sign up for your FREE Gamerce account and enjoy these benefits:</h2>
