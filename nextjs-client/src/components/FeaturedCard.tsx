@@ -9,10 +9,9 @@ export default function FeaturedCard() {
   useEffect(() => {
     const fetchFeatured = async () => {
       try {
-        const response = await fetch("http://localhost:3000/api/products");
+        const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/products?limit=10`);
         const data = await response.json();
-        const featuredProducts = data.slice(0, 10); // Only 10 products
-        setData(featuredProducts);
+        setData(data);
       } catch (error) {
         return errorHandler(error);
       }

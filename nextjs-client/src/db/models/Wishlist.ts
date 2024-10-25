@@ -33,9 +33,7 @@ class Wishlist {
   static async getUserWishlist(userId: string) {
     const wishlist = await this.collection().aggregate([
       {
-        $match: {
-          userId: new ObjectId(userId),
-        },
+        $match: { userId: new ObjectId(userId) },
       },
       {
         $lookup: {
@@ -51,10 +49,14 @@ class Wishlist {
           preserveNullAndEmptyArrays: true,
         },
       },
+      {
+        $addFields: { isInWishlist: true }, // Add this field to mark the item as part of the wishlist
+      },
     ]).toArray();
-
+  
     return wishlist;
   }
+  
 }
 
 export default Wishlist;

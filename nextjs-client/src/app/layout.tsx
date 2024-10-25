@@ -4,6 +4,7 @@ import "./globals.css";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import { AuthProvider } from "@/authContext";
+import { Suspense } from "react"; 
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -33,7 +34,11 @@ export default function RootLayout({
       >
         <AuthProvider>
           <Navbar />
-          <main className="flex-grow">{children}</main>
+          <main className="flex-grow">
+            <Suspense fallback={<div>Loading...</div>}>
+              {children}
+            </Suspense>
+          </main>
           <Footer />
         </AuthProvider>
       </body>

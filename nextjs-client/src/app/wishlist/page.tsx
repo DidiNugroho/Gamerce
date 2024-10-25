@@ -3,22 +3,31 @@
 import WishlistCard from '@/components/WishlistCard';
 import { WishlistResponseType } from '@/types';
 import React, { useEffect, useState } from 'react';
+import Swal from 'sweetalert2';
 
 export default function Wishlist() {
   const [wishlist, setWishlist] = useState<WishlistResponseType | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
-  const [error, setError] = useState<string | null>(null);
 
   const fetchWishlist = async () => {
     try {
-      const response = await fetch('http://localhost:3000/api/wishlist');
+      const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/wishlist`);
+      
       if (!response.ok) {
         throw new Error('Failed to fetch wishlist');
       }
       const data: WishlistResponseType = await response.json();
+      
       setWishlist(data);
-    } catch (err: any) {
-      setError(err.message);
+    } catch (error) {
+      if (error instanceof Error) {
+        Swal.fire({
+          title: "Error!",
+          text: error.message,
+          icon: "error",
+          confirmButtonText: "Cool",
+        });
+      }
     } finally {
       setLoading(false);
     }
@@ -30,10 +39,6 @@ export default function Wishlist() {
 
   if (loading) {
     return <div>Loading...</div>;
-  }
-
-  if (error) {
-    return <div>Error: {error}</div>;
   }
 
   return (

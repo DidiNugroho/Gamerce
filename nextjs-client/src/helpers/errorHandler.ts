@@ -1,8 +1,13 @@
 import { z } from "zod";
 
-export const errorHandler = (error: any) => {
-    let message = error.message || "Internal Server Error";
-    let status = error.status || 500;
+type ErrorType = {
+  message?: string;
+  status?: number;
+}
+
+export const errorHandler = (error: unknown) => {
+    let message = (error as ErrorType).message || "Internal Server Error";
+    let status = (error as ErrorType).status || 500;
 
     if(error instanceof z.ZodError) {
         const errMessage = error.issues[0].message

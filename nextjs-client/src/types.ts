@@ -22,6 +22,7 @@ export interface WishlistItemType {
   userId: string;
   productId: string;
   ProductData: ProductType;
+  isInWishlist: boolean;
 }
 
 export type WishlistResponseType = WishlistItemType[];

@@ -5,9 +5,10 @@ import Swal from "sweetalert2";
 
 interface AddToWishlistProps {
   productId: string;
+  onProductAdded: () => void
 }
 
-export default function AddToWishlist({ productId }: AddToWishlistProps) {
+export default function AddToWishlist({ productId, onProductAdded }: AddToWishlistProps) {
   const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -15,7 +16,7 @@ export default function AddToWishlist({ productId }: AddToWishlistProps) {
     setLoading(true);
 
     try {
-      const res = await fetch("http://localhost:3000/api/wishlist", {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/wishlist`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ productId }),
@@ -25,19 +26,23 @@ export default function AddToWishlist({ productId }: AddToWishlistProps) {
 
       if (!res.ok) throw new Error(response.message || "Failed to add to wishlist");
 
+      onProductAdded()
+
       Swal.fire({
         title: "Success!",
         text: "Product added to wishlist!",
         icon: "success",
         confirmButtonText: "Nice",
       });
-    } catch (error: any) {
-      Swal.fire({
-        title: "Error!",
-        text: error.message,
-        icon: "error",
-        confirmButtonText: "Cool",
-      });
+    } catch (error) {
+      if (error instanceof Error) {
+        Swal.fire({
+          title: "Error!",
+          text: error.message,
+          icon: "error",
+          confirmButtonText: "Cool",
+        });
+      }
     } finally {
       setLoading(false);
     }

@@ -1,5 +1,8 @@
+"use client"
+
 import Image from "next/image";
 import AddToWishlist from "./AddToWishlist";
+import RemoveWishlistButton from "./RemoveFromWishlistButton";
 
 interface CardProps {
   product: {
@@ -12,9 +15,15 @@ interface CardProps {
     tags: string[];
     thumbnail: string;
   };
+  wishlist: { _id: string, productId: string, isInWishlist: boolean }[];
+  onProductRemoved: () => void
+  onProductAdded: () => void
 }
 
-export default function Card({ product }: CardProps) {
+export default function Card({ product, wishlist, onProductRemoved, onProductAdded }: CardProps) {
+  const wishlistItem = wishlist.find((item) => item.productId === product._id);
+  const isInWishlist = Boolean(wishlistItem);
+
   return (
     <div className="bg-white shadow-md rounded-lg hover:scale-105 overflow-hidden w-72 h-96 flex flex-col">
       <div className="h-48 w-full relative">
@@ -32,7 +41,14 @@ export default function Card({ product }: CardProps) {
         <p className="text-xl font-bold mt-2">{`$${product.price}`}</p>
 
         <div className="flex justify-end mt-4">
-          <AddToWishlist productId={product._id} />
+          {isInWishlist ? (
+            <RemoveWishlistButton
+              _id={wishlistItem!._id}
+              onProductRemoved={onProductRemoved}
+            />
+          ) : (
+            <AddToWishlist productId={product._id} onProductAdded={onProductAdded}/>
+          )}
         </div>
       </div>
     </div>

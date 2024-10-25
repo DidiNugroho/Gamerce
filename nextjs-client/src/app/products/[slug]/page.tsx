@@ -1,4 +1,4 @@
-import AddToWishlist from "@/components/AddToWishlist";
+import ProductDetailClient from "@/components/ProductDetail";
 import ProductGallery from "@/components/ProductGallery";
 import { ProductType } from "@/types";
 import { Metadata } from "next";
@@ -9,23 +9,22 @@ interface ProductDetailProps {
   };
 }
 
-export async function generateMetadata({params}: ProductDetailProps): Promise<Metadata> {
-
+export async function generateMetadata({ params }: ProductDetailProps): Promise<Metadata> {
   const slug = params.slug;
 
-  const product: ProductType = await fetch(`http://localhost:3000/api/products/${slug}`).then((res) => res.json())
+  const product: ProductType = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/products/${slug}`).then((res) => res.json());
   return {
     title: "Gamerce | " + product.name,
     description: product.description,
     openGraph: {
-      images: [product.images[0]]
-    }
-  }
+      images: [product.images[0]],
+    },
+  };
 }
 
 async function fetchProduct(slug: string): Promise<ProductType | null> {
   try {
-    const response = await fetch(`http://localhost:3000/api/products/${slug}`);
+    const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/products/${slug}`);
     if (!response.ok) throw new Error("Failed to fetch product");
     return await response.json();
   } catch (error) {
@@ -55,15 +54,14 @@ export default async function ProductDetail({ params }: ProductDetailProps) {
           <div className="mb-12">
             <span className="font-semibold">Tags: </span>
             {product.tags.map((tag) => (
-              <span
-                key={tag}
-                className="bg-gray-200 px-2 py-1 rounded-full mr-2"
-              >
+              <span key={tag} className="bg-gray-200 px-2 py-1 rounded-full mr-2">
                 {tag}
               </span>
             ))}
           </div>
-          <AddToWishlist productId={product._id}/>
+
+          {/* Render the client component for interactive behavior */}
+          <ProductDetailClient productId={product._id} />
         </div>
       </div>
       <div>

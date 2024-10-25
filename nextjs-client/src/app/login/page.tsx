@@ -5,6 +5,8 @@ import { useRouter } from "next/navigation";
 import { ChangeEvent, FormEvent, useState } from "react";
 import Swal from "sweetalert2";
 
+
+
 export default function Login() {
   const { login } = useAuth();
   const [input, setInput] = useState({
@@ -27,7 +29,7 @@ export default function Login() {
     e.preventDefault();
     try {
       setLoading(true);
-      const res = await fetch("http://localhost:3000/api/login", {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/login`, {
         method: "POST",
         body: JSON.stringify(input),
       });
@@ -40,14 +42,15 @@ export default function Login() {
 
       login();
       router.push("/");
-      
-    } catch (error: any) {
-      Swal.fire({
-        title: "Error!",
-        text: error.message,
-        icon: "error",
-        confirmButtonText: "Cool",
-      });
+    } catch (error) {
+      if (error instanceof Error) {
+        Swal.fire({
+          title: "Error!",
+          text: error.message,
+          icon: "error",
+          confirmButtonText: "Cool",
+        });
+      }
     } finally {
       setLoading(false);
     }
