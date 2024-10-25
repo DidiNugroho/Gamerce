@@ -2,17 +2,11 @@ import Product from "@/db/models/Product";
 
 export async function GET(request: Request) {
   const url = new URL(request.url);
-  const searchQuery = url.searchParams.get("q") || "";
+  const searchQuery = url.searchParams.get("search") || "";
+  const limit = url.searchParams.get("limit");
+  const page = url.searchParams.get("page");
 
-  let products;
-
-  if (searchQuery) {
-    products = await Product.collection()
-      .find({ name: { $regex: searchQuery, $options: "i" } })
-      .toArray();
-  } else {
-    products = await Product.getAll();
-  }
+  const products = await Product.getAll(limit, searchQuery, page);
 
   return Response.json(products);
 }

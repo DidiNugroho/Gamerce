@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 import Card from "../../components/Card";
+import InfiniteScroll from "react-infinite-scroll-component";
 
 interface Product {
   _id: string;
@@ -21,52 +22,64 @@ interface Product {
 
 export default function Products() {
   const [productsData, setProductsData] = useState<Product[]>([]);
-  const [loading, setLoading] = useState<boolean>(true);
+  const [page, setPage] = useState(1);
+  const [hasMore, setHasMore] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const searchParams = useSearchParams();
   const searchQuery = searchParams.get("search") || "";
-
   const fetchProducts = async (query: string = "") => {
-    setLoading(true);
     setError(null);
-
     try {
-      const url = query
-        ? `http://localhost:3000/api/products?q=${encodeURIComponent(query)}`
-        : `http://localhost:3000/api/products`;
-
-      const response = await fetch(url);
+      const response = await fetch(
+        `http://localhost:3000/api/products?search=${query}&limit=10&page=${page}`
+      );
       if (!response.ok) throw new Error(`Error: ${response.statusText}`);
 
       const data = await response.json();
-      setProductsData(data);
+
+      if (data.length === 0) {
+        setHasMore(false);
+      }
+
+      if (data.length > 0) {
+        setProductsData([...productsData, ...data]);
+      }
+      setPage(page + 1);
     } catch (err) {
       setError(err instanceof Error ? err.message : "Failed to fetch products");
-    } finally {
-      setLoading(false);
     }
   };
 
   useEffect(() => {
-    fetchProducts(searchQuery);
+    if(searchQuery) {
+      fetchProducts(searchQuery)
+      if(page < 2) {
+        setHasMore(false)
+      }
+    }
+    if(searchQuery.length == 0) {
+      fetchProducts()
+    }
   }, [searchQuery]);
 
-  if (loading) return <p>Loading...</p>;
   if (error) return <p>Error: {error}</p>;
 
   return (
     <div className="mt-4 mr-24 ml-40">
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6 p-8">
-        {productsData.length > 0 ? (
-          productsData.map((product) => (
+      <InfiniteScroll
+        dataLength={productsData.length}
+        next={fetchProducts}
+        hasMore={hasMore}
+        loader={<h4>Loading...</h4>}
+      >
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6 p-8">
+          {productsData.map((product) => (
             <Link key={product._id} href={`/products/${product.slug}`}>
               <Card product={product} />
             </Link>
-          ))
-        ) : (
-          <p>No products found.</p>
-        )}
-      </div>
+          ))}
+        </div>
+      </InfiniteScroll>
     </div>
   );
 }

@@ -1,11 +1,26 @@
 import AddToWishlist from "@/components/AddToWishlist";
 import ProductGallery from "@/components/ProductGallery";
 import { ProductType } from "@/types";
+import { Metadata } from "next";
 
 interface ProductDetailProps {
   params: {
     slug: string;
   };
+}
+
+export async function generateMetadata({params}: ProductDetailProps): Promise<Metadata> {
+
+  const slug = params.slug;
+
+  const product: ProductType = await fetch(`http://localhost:3000/api/products/${slug}`).then((res) => res.json())
+  return {
+    title: "Gamerce | " + product.name,
+    description: product.description,
+    openGraph: {
+      images: [product.images[0]]
+    }
+  }
 }
 
 async function fetchProduct(slug: string): Promise<ProductType | null> {

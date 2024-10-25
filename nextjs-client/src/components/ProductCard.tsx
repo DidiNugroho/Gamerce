@@ -1,6 +1,8 @@
 import Image from "next/image";
+import Link from "next/link";
 
 interface Product {
+  _id: string;
   name: string;
   slug: string;
   description: string;
@@ -19,7 +21,7 @@ interface ProductCardProps {
 
 export default function ProductCard({ product }: ProductCardProps) {
   return (
-    <div className="bg-white rounded-lg shadow-md p-4 m-2 w-60 h-96 flex flex-col">
+    <Link href={`/products/${product.slug}`} className="bg-white rounded-lg shadow-md p-4 w-60 h-96 flex-shrink-0 hover:shadow-lg transition-shadow duration-200">
       <div className="h-40 w-full mb-2">
         <Image
           src={product.thumbnail}
@@ -35,16 +37,12 @@ export default function ProductCard({ product }: ProductCardProps) {
           {product.name}
         </h3>
 
-        <p className="text-gray-600 text-sm text-center h-10 overflow-hidden">
+        <p className="text-gray-600 mt-8 text-sm text-center h-10 overflow-hidden">
           {product.excerpt}
         </p>
 
-        <p className="font-semibold text-xl mt-2">{`$${product.price}`}</p>
+        <p className="font-semibold text-xl mt-12">{`$${product.price}`}</p>
       </div>
-
-      <button className="mt-auto bg-blue-500 text-white py-1 px-4 rounded hover:bg-blue-600 transition duration-300">
-        View Product
-      </button>
-    </div>
+    </Link>
   );
 }

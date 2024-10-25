@@ -16,7 +16,6 @@ export default function Wishlist() {
         throw new Error('Failed to fetch wishlist');
       }
       const data: WishlistResponseType = await response.json();
-      console.log(data);
       setWishlist(data);
     } catch (err: any) {
       setError(err.message);
