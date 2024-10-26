@@ -1,12 +1,8 @@
 "use client";
 
+import { RemoveWishlistButtonProps } from "@/types";
 import React, { useState } from "react";
 import Swal from "sweetalert2";
-
-interface RemoveWishlistButtonProps {
-  _id: string;
-  onProductRemoved: () => void;
-}
 
 export default function RemoveWishlistButton({
   _id,
@@ -19,15 +15,19 @@ export default function RemoveWishlistButton({
     setLoading(true);
 
     try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/wishlist`, {
-        method: "DELETE",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ _id }),
-      });
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_BASE_URL}/api/wishlist`,
+        {
+          method: "DELETE",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ _id }),
+        }
+      );
 
       const response = await res.json();
 
-      if (!res.ok) throw new Error(response.message || "Failed to remove from wishlist");
+      if (!res.ok)
+        throw new Error(response.message || "Failed to remove from wishlist");
 
       Swal.fire({
         title: "Success!",

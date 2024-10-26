@@ -1,11 +1,8 @@
-"use client"; // This component can use client-side features
+"use client"; 
 
 import AddToWishlist from "@/components/AddToWishlist";
+import { ProductDetailClientProps } from "@/types";
 import { useState } from "react";
-
-interface ProductDetailClientProps {
-  productId: string;
-}
 
 const ProductDetailClient: React.FC<ProductDetailClientProps> = ({
   productId,

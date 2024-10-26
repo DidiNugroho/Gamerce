@@ -50,7 +50,7 @@ class Wishlist {
         },
       },
       {
-        $addFields: { isInWishlist: true }, // Add this field to mark the item as part of the wishlist
+        $addFields: { isInWishlist: true },
       },
     ]).toArray();
   

@@ -1,8 +1,4 @@
-interface SearchInputProps {
-  value: string;
-  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  onKeyDown: (event: React.KeyboardEvent<HTMLInputElement>) => void;
-}
+import { SearchInputProps } from "@/types";
 
 export default function SearchInput({
   value,

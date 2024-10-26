@@ -5,8 +5,6 @@ import { useRouter } from "next/navigation";
 import { ChangeEvent, FormEvent, useState } from "react";
 import Swal from "sweetalert2";
 
-
-
 export default function Login() {
   const { login } = useAuth();
   const [input, setInput] = useState({
@@ -42,6 +40,7 @@ export default function Login() {
 
       login();
       router.push("/");
+      router.refresh();
     } catch (error) {
       if (error instanceof Error) {
         Swal.fire({

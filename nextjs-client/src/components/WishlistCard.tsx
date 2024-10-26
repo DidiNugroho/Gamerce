@@ -4,18 +4,7 @@
 import Image from "next/image";
 import React from "react";
 import RemoveWishlistButton from "./RemoveFromWishlistButton";
-
-interface WishlistCardProps {
-  _id: string;
-  productId: string;
-  title: string;
-  description: string;
-  price: number;
-  slug: string;
-  excerpt: string;
-  images: { url: string; alt: string }[];
-  onProductRemoved: () => void;
-}
+import { WishlistCardProps } from "@/types";
 
 export default function WishlistCard({
   _id,
@@ -56,10 +45,7 @@ export default function WishlistCard({
           </div>
         </div>
         <div className="flex items-center justify-center ml-auto">
-          <RemoveWishlistButton
-            _id={_id}
-            onProductRemoved={onProductRemoved}
-          />
+          <RemoveWishlistButton _id={_id} onProductRemoved={onProductRemoved} />
         </div>
       </div>
     </article>

@@ -5,37 +5,17 @@ import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 import Card from "../../components/Card";
 import InfiniteScroll from "react-infinite-scroll-component";
-
-interface Product {
-  _id: string;
-  name: string;
-  slug: string;
-  description: string;
-  excerpt: string;
-  price: number;
-  tags: string[];
-  thumbnail: string;
-  images: { url: string; alt: string }[];
-  createdAt: string;
-  updatedAt: string;
-}
-
-interface WishlistItem {
-  _id: string, 
-  productId: string, 
-  isInWishlist: boolean
-}
+import { ProductType, WishlistItemType } from "@/types";
 
 export default function Products() {
-  const [productsData, setProductsData] = useState<Product[]>([]);
-  const [wishlist, setWishlist] = useState<WishlistItem[]>([]);
+  const [productsData, setProductsData] = useState<ProductType[]>([]);
+  const [wishlist, setWishlist] = useState<WishlistItemType[]>([]);
   const [page, setPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const searchParams = useSearchParams();
   const searchQuery = searchParams.get("search") || "";
   const pageRef = useRef(1);
-
 
   const fetchWishlist = async () => {
     try {

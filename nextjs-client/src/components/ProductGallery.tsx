@@ -1,11 +1,7 @@
 "use client";
 import { useState } from "react";
 import Image from "next/image";
-
-interface ProductGalleryProps {
-  images: { url: string; alt: string }[];
-  thumbnail: string;
-}
+import { ProductGalleryProps } from "@/types";
 
 const ProductGallery: React.FC<ProductGalleryProps> = ({
   images,

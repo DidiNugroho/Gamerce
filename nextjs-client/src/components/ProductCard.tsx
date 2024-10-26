@@ -1,27 +1,13 @@
+import { ProductCardProps } from "@/types";
 import Image from "next/image";
 import Link from "next/link";
 
-interface Product {
-  _id: string;
-  name: string;
-  slug: string;
-  description: string;
-  excerpt: string;
-  price: number;
-  tags: string[];
-  thumbnail: string;
-  images: string[];
-  createdAt: string;
-  updatedAt: string;
-}
-
-interface ProductCardProps {
-  product: Product;
-}
-
 export default function ProductCard({ product }: ProductCardProps) {
   return (
-    <Link href={`/products/${product.slug}`} className="bg-white rounded-lg shadow-md p-4 w-60 h-96 flex-shrink-0 hover:shadow-lg transition-shadow duration-200">
+    <Link
+      href={`/products/${product.slug}`}
+      className="bg-white rounded-lg shadow-md p-4 w-60 h-96 flex-shrink-0 hover:shadow-lg transition-shadow duration-200"
+    >
       <div className="h-40 w-full mb-2">
         <Image
           src={product.thumbnail}

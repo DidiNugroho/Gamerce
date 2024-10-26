@@ -1,9 +1,6 @@
 import Product from "@/db/models/Product";
+import { errorHandler } from "@/helpers/errorHandler";
 
-type ErrorType = {
-  message?: string;
-  status?: number;
-}
 
 export async function GET(
   request: Request,
@@ -14,15 +11,6 @@ export async function GET(
     const product = await Product.getBySlug(slug);
     return Response.json(product);
   } catch (error) {
-    const message = (error as ErrorType).message || "Internal Server Error";
-    const status = (error as ErrorType).status || 500;
-    return Response.json(
-      {
-        message: message,
-      },
-      {
-        status: status,
-      }
-    );
+    return errorHandler(error)
   }
 }

@@ -24,7 +24,6 @@ class Product {
           name: { $regex: el, $options: "i" }
         }));
 
-      // Construct the $and query
       query.$and = arr.length > 0 ? arr : [{ name: { $regex: "", $options: "i" } }]; // Default to empty regex if no terms
     }
 

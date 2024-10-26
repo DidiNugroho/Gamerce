@@ -1,12 +1,10 @@
 "use client";
 
+import { AddToWishlistProps } from "@/types";
 import { useState } from "react";
 import Swal from "sweetalert2";
 
-interface AddToWishlistProps {
-  productId: string;
-  onProductAdded: () => void
-}
+
 
 export default function AddToWishlist({ productId, onProductAdded }: AddToWishlistProps) {
   const [loading, setLoading] = useState(false);
@@ -50,7 +48,7 @@ export default function AddToWishlist({ productId, onProductAdded }: AddToWishli
 
   return (
     <button
-      onClick={handleSubmit}
+      onClick={(handleSubmit)}
       className={`mt-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition ${
         loading ? "opacity-50 cursor-not-allowed" : ""
       }`}

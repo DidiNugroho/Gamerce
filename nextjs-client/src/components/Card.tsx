@@ -3,22 +3,8 @@
 import Image from "next/image";
 import AddToWishlist from "./AddToWishlist";
 import RemoveWishlistButton from "./RemoveFromWishlistButton";
+import { CardProps } from "@/types";
 
-interface CardProps {
-  product: {
-    _id: string;
-    name: string;
-    slug: string;
-    description: string;
-    excerpt: string;
-    price: number;
-    tags: string[];
-    thumbnail: string;
-  };
-  wishlist: { _id: string, productId: string, isInWishlist: boolean }[];
-  onProductRemoved: () => void
-  onProductAdded: () => void
-}
 
 export default function Card({ product, wishlist, onProductRemoved, onProductAdded }: CardProps) {
   const wishlistItem = wishlist.find((item) => item.productId === product._id);

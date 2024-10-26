@@ -1,6 +1,6 @@
-"use client"
+"use client";
 import Link from "next/link";
-import { useRouter } from 'next/navigation';
+import { useRouter } from "next/navigation";
 import { ChangeEvent, FormEvent, useState } from "react";
 import Swal from "sweetalert2";
 
@@ -9,35 +9,37 @@ export default function RegisterForm() {
     name: "",
     username: "",
     email: "",
-    password: ""
-  })
+    password: "",
+  });
 
-  const router = useRouter()
+  const router = useRouter();
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { value, name } = e.target;
     setInput({
       ...input,
-      [name]: value
-    })
-  }
+      [name]: value,
+    });
+  };
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
+    e.preventDefault();
 
     try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/register`, {
-        method: "POST",
-        body: JSON.stringify(input)
-      })
-      const response = await res.json()
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_BASE_URL}/api/register`,
+        {
+          method: "POST",
+          body: JSON.stringify(input),
+        }
+      );
+      const response = await res.json();
 
-      if(!res.ok) {
+      if (!res.ok) {
         throw response;
       }
 
-      router.push("/login")
-      
+      router.push("/login");
     } catch (error) {
       if (error instanceof Error) {
         Swal.fire({
@@ -48,11 +50,12 @@ export default function RegisterForm() {
         });
       }
     }
-  }
+  };
 
   return (
     <div className="flex items-center justify-between min-h-screen ml-36">
-      <form className="flex flex-col mr-48 justify-center max-w-lg w-full space-y-6 font-[sans-serif] text-[#333]"
+      <form
+        className="flex flex-col mr-48 justify-center max-w-lg w-full space-y-6 font-[sans-serif] text-[#333]"
         onSubmit={handleSubmit}
       >
         <div>
@@ -121,10 +124,20 @@ export default function RegisterForm() {
 
       <div className="hidden md:flex w-full h-screen bg-black text-white p-8">
         <div className="space-y-4 mt-48">
-          <h2 className="text-xl font-bold">Sign up for your FREE Gamerce account and enjoy these benefits:</h2>
+          <h2 className="text-xl font-bold">
+            Sign up for your FREE Gamerce account and enjoy these benefits:
+          </h2>
           <h3 className="font-semibold">Gamerce account exclusive benefits:</h3>
-          <p><strong>PRODUCTS CHECKING</strong><br />Check All Products Available.</p>
-          <p><strong>WISHLIST FEATURE</strong><br />Save your favorite product to wishlist.</p>
+          <p>
+            <strong>PRODUCTS CHECKING</strong>
+            <br />
+            Check All Products Available.
+          </p>
+          <p>
+            <strong>WISHLIST FEATURE</strong>
+            <br />
+            Save your favorite product to wishlist.
+          </p>
         </div>
       </div>
     </div>
